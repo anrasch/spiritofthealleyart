@@ -24,8 +24,11 @@
             overflow: hidden;
             padding: 20px;
             min-height: 100vh;
+            display: -webkit-flex;
             display: flex;
+            -webkit-justify-content: center;
             justify-content: center;
+            -webkit-aling-items: center;
             align-items: center;
             background-size: cover;
             background-attachment: fixed;
@@ -96,13 +99,28 @@
             animation: fadeIn 2s ease forwards;
         }
 
-        @keyframes fadeIn {
+        @-webkit-keyframes fadeIn {
             0% {
                 opacity: 0;
+                -webkit-transform: translateY(-20px)
+                
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0)
+            
+            }
+        }
+
+        @keyframes fadeIn {
+           0% {
+                opacity: 0;
+                -webkit-transform: translateY(-20px);
                 transform: translateY(-20px);
             }
             100% {
                 opacity: 1;
+                -webkit-transform: translateY(0);
                 transform: translateY(0);
             }
         }
