@@ -19,7 +19,6 @@
         }
 
         .section {
-            text-align: center;
             position: relative;
             overflow: hidden;
             padding: 20px;
@@ -28,11 +27,24 @@
             display: flex;
             -webkit-justify-content: center;
             justify-content: center;
-            -webkit-aling-items: center;
+            -webkit-align-items: center;
             align-items: center;
             background-size: cover;
-            background-attachment: fixed;
+            background-position: center
+        }
+
+        .section::before {
+            content: "";
+            background-size: cover;
             background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         .section-overlay {
@@ -492,7 +504,7 @@
     </div>
 </div>
 
-<div class="section" style="background-image: url('images/background5.jpg'); height: 40vh;">
+<div class="section" style="background-image: url('images/background5.jpg');">
     <div class="section-overlay"></div>
     <div class="section-content">
         <div class="link-container">
@@ -548,6 +560,22 @@
     document.querySelectorAll('.flip-card-inner').forEach(card => {
         card.addEventListener('click', function() {
             card.style.transform = card.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+        });
+    });
+    // Initial background image setup
+    document.querySelectorAll('.section').forEach(section => {
+            const bgImage = section.getAttribute('data-background');
+            section.style.setProperty('--background-image', `url(${bgImage})`);
+    });
+
+    // Parallax scrolling effect
+    document.addEventListener('scroll', function() {
+        const scrolled = window.scrollY;
+        document.querySelectorAll('.section').forEach((section, index) => {
+            const before = section.querySelector('::before');
+            if (before) {
+                before.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         });
     });
 </script>
